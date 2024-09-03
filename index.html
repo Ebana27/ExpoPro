@@ -1,0 +1,551 @@
+<!DOCTYPE html><html><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ExpoPro Congo - Services d'exposés pour étudiants</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root {
+  --primary: #3A1078;
+  --secondary: #4E31AA;
+  --accent: #3795BD;
+  --light: #F7F7F8;
+  --tertiary: #6A5ACD;
+  --quaternary: #9370DB;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', Arial, sans-serif;
+  background-color: var(--light);
+  color: var(--primary);
+  line-height: 1.6;
+}
+
+.container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+header {
+  background-color: var(--primary);
+  color: var(--light);
+  padding: 1rem 0;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+}
+
+.nav-links li {
+  margin-left: 2rem;
+}
+
+.nav-links a {
+  color: var(--light);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  position: relative;
+}
+
+.nav-links a:hover {
+  color: var(--accent);
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -5px;
+  left: 0;
+  background-color: var(--accent);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+.hero {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-image: url('https://images.unsplash.com/photo-1513258496099-48168024aec0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: var(--light);
+  position: relative;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.hero-content {
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 3rem;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 1rem 2rem;
+  background: linear-gradient(to right, var(--accent), var(--tertiary), var(--quaternary));
+  color: var(--light);
+  text-decoration: none;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.btn:hover {
+  background: linear-gradient(to right, var(--primary), var(--secondary));
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+section {
+  padding: 6rem 0;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 3rem;
+  font-size: 2.5rem;
+  color: var(--primary);
+  position: relative;
+}
+
+h2::after {
+  content: '';
+  display: block;
+  width: 50px;
+  height: 3px;
+  background: var(--accent);
+  margin: 10px auto;
+}
+
+.services-grid, .tarifs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.service-card, .tarif-card {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.service-card:hover, .tarif-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.service-card img, .tarif-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-bottom: 1.5rem;
+}
+
+.service-card h3, .tarif-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--secondary);
+}
+
+.service-card i, .tarif-card i {
+  font-size: 3rem;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+#contact {
+  background: linear-gradient(135deg, var(--secondary), var(--tertiary), var(--quaternary));
+  color: var(--light);
+}
+
+.contact-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.contact-image {
+  flex: 1;
+  background-image: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+  background-size: cover;
+  background-position: center;
+}
+
+.contact-form {
+  flex: 1;
+  padding: 3rem;
+  color: var(--primary);
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: var(--secondary);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--accent);
+  outline: none;
+}
+
+.form-group textarea {
+  height: 150px;
+}
+
+.form-group button {
+  background: var(--primary);
+  color: var(--light);
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  width: 100%;
+}
+
+.form-group button:hover {
+  background: var(--secondary);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+footer {
+  background-color: var(--primary);
+  color: var(--light);
+  text-align: center;
+  padding: 2rem 0;
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: var(--primary);
+    padding: 1rem 0;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .nav-links li {
+    margin: 0.5rem 0;
+  }
+
+  .menu-toggle {
+    display: block;
+    background: none;
+    border: none;
+    color: var(--light);
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+
+  .contact-container {
+    flex-direction: column;
+  }
+
+  .contact-image {
+    height: 200px;
+  }
+
+  .contact-form {
+    padding: 2rem;
+  }
+}
+</style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">ExpoPro Congo</div>
+            <ul class="nav-links">
+                <li><a href="#services">Services</a></li>
+                <li><a href="#tarifs">Tarifs</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="menu-toggle">☰</button>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content" style="background: transparent; padding: 3rem;">
+    <h1>ExpoPro Congo</h1>
+    <p>Services d'exposés professionnels pour étudiants congolais</p>
+    <a href="#contact" class="btn" style="margin: 12px;">Commencer maintenant <i class="fas fa-arrow-right"></i></a>
+</div>
+        </section>
+
+        <section id="services" class="container">
+            <h2>Nos Services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <i class="fas fa-pencil-alt"></i>
+                    <h3>Création d'exposés</h3>
+                    <p>Nous concevons des exposés complets et sur mesure pour votre niveau scolaire.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-keyboard"></i>
+                    <h3>Saisie d'exposés</h3>
+                    <p>Nous mettons en forme vos notes et recherches dans un format professionnel.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-comments"></i>
+                    <h3>Conseils et révision</h3>
+                    <p>Nous vous guidons pour améliorer vos propres exposés et présentations.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="tarifs" class="container">
+            <h2>Nos tarifs</h2>
+            <div class="tarifs-grid">
+                <div class="tarif-card">
+                    <i class="fas fa-school"></i>
+                    <h3>Collège</h3>
+                    <p class="price">10 000 FCFA</p>
+                    <p>À partir de</p>
+                </div>
+                <div class="tarif-card">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h3>Lycée</h3>
+                    <p class="price">15 000 FCFA</p>
+                    <p>À partir de</p>
+                </div>
+                <div class="tarif-card">
+                    <i class="fas fa-university"></i>
+                    <h3>Études supérieures</h3>
+                    <p class="price">Sur devis</p>
+                    <p>Contactez-nous</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" style="margin: 4rem;">
+    <div class="container">
+        <h2>Contactez-nous</h2>
+        <div class="contact-container">
+            <div class="contact-image"></div>
+            <form id="contact-form" class="contact-form">
+                <div class="form-group">
+                    <label for="nom"><i class="fas fa-user"></i> Nom complet</label>
+                    <input type="text" id="nom" name="nom" required="">
+                </div>
+                <div class="form-group">
+                    <label for="email"><i class="fas fa-envelope"></i> Adresse e-mail</label>
+                    <input type="email" id="email" name="email" required="">
+                </div>
+                <div class="form-group">
+                    <label for="telephone"><i class="fas fa-phone"></i> Numéro de téléphone</label>
+                    <input type="tel" id="telephone" name="telephone" required="">
+                </div>
+                <div class="form-group">
+                    <label for="niveau"><i class="fas fa-graduation-cap"></i> Niveau scolaire</label>
+                    <select id="niveau" name="niveau" required="">
+                        <option value="">Sélectionnez votre niveau</option>
+                        <option value="college">Collège</option>
+                        <option value="lycee">Lycée</option>
+                        <option value="superieur">Études supérieures</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="sujet"><i class="fas fa-book"></i> Sujet de l'exposé</label>
+                    <input type="text" id="sujet" name="sujet" required="">
+                </div>
+                <div class="form-group">
+                    <label for="description"><i class="fas fa-align-left"></i> Description du projet</label>
+                    <textarea id="description" name="description" required=""></textarea>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Envoyer la demande <i class="fas fa-paper-plane"></i></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+    </main>
+
+    <footer>
+        <p>© 2023 ExpoPro Congo. Tous droits réservés.</p>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        // Menu toggle for mobile
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Scroll animations
+        const sections = document.querySelectorAll('section');
+        const options = {
+            root: null,
+            threshold: 0.1,
+            rootMargin: "0px"
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, options);
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // Form submission
+        const form = document.getElementById('contact-form');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Merci pour votre demande ! Nous vous contacterons rapidement avec un devis personnalisé.');
+            form.reset();
+        });
+
+        // Add some UX improvements
+        const inputs = document.querySelectorAll('input, select, textarea');
+        inputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.classList.add('active');
+            });
+            input.addEventListener('blur', () => {
+                if (input.value === '') {
+                    input.parentElement.classList.remove('active');
+                }
+            });
+        });
+
+        // Add a scroll-to-top button
+        const scrollTopButton = document.createElement('button');
+        scrollTopButton.innerHTML = '<i class="fas fa-chevron-up"></i>';
+        scrollTopButton.classList.add('scroll-top');
+        document.body.appendChild(scrollTopButton);
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 100) {
+                scrollTopButton.classList.add('show');
+            } else {
+                scrollTopButton.classList.remove('show');
+            }
+        });
+
+        scrollTopButton.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    });
+    </script>
+
+</body></html>
